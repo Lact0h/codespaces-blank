@@ -1,0 +1,81 @@
+import time #importing time to have delays
+import random #makes a random choice for the computer
+player_score = 0
+computer_score = 0
+round_counter = 0
+possible_actions = ["ROCK", "PAPER", "SCISSORS"]#Defining a list so the computer can either choose one of them 
+player_actions = ["rock", "paper", "scissors", "ROUND", "ROUNDS"]
+print("This is a game of rock, paper and scissors. ") #we greet the player by using the print statment (it does not need to be an input).
+time.sleep(2) # We delay the time so it allows the player to read the text. 
+#The below code will declare the rules of the game. 
+print("""To play the game:
+    1. You must choose either rock, paper or scissors
+    2. The opponent will choose either of the three as well
+    3. To find out you won: 
+                   a. Rock is stronger than scissors.
+                   b. Scissors is stronger than paper.
+                   c. Paper is stronger than rock.
+                   d. If both users pick the same object, its a tie.""") 
+time.sleep(3)
+rounds = input("How many games you want to play rock, paper and scissors? \n") #We tell the player hown many games they want to play.
+rounds = int(rounds)
+while round_counter < rounds:
+        player_choice = input(f"\nWhat do you want to pick? Choose either of these: {player_actions} \n") #Choice for either rock, paper, or scissors. 
+        time.sleep(1)
+        if player_choice.upper() == "QUIT" or player_choice.upper() == "Q": #This makes it where if the player decides to quit or not, it becomes a priority.
+            print("Okay, thanks for playing! \n")
+            print("We will still show your score and the opponent score. \n")
+            break
+        if player_choice.upper() == "ROUND" or player_choice.upper() == "ROUNDS":
+            print("The current round is ", round_counter)
+            continue
+        while player_choice not in player_actions:
+            print("That's the wrong choice! ")
+            player_choice = input(f"\nWhat do you want to pick? Choose either of these: {possible_actions} \n")
+            time.sleep(1)
+        print ("You pick " + player_choice.upper()) #we convert everything to upper because it makes the code more compact and easier to code.
+        computer_action = random.choice(possible_actions) #Computer picks a choice.
+        print ("The opponent picks " + computer_action.upper())
+        if player_choice.upper() == computer_action:
+            print("It's a tie!\n")
+            round_counter +=1
+        elif player_choice.upper() == "ROCK" and computer_action == "PAPER": #The below code is all the possible combinations for the RPS 
+            print("The opponent won!\n")
+            round_counter +=1
+            computer_score +=1
+        elif player_choice.upper() == "PAPER" and computer_action == "SCISSORS":
+            print("The opponent won!\n")
+            round_counter +=1
+            computer_score +=1
+        elif player_choice.upper() == "SCISSORS" and computer_action == "ROCK":
+            print("The opponent won!\n")
+            round_counter +=1
+            computer_score +=1
+        elif player_choice.upper() == "ROCK" and computer_action == "SCISSORS":
+            print("You won!\n")
+            round_counter +=1
+            player_score +=1
+        elif player_choice.upper() == "SCISSORS" and computer_action == "PAPER":
+            print("You won!\n")
+            round_counter +=1
+            player_score +=1
+        elif player_choice.upper() == "PAPER" and computer_action == "ROCK":
+            print("You won!\n")
+            round_counter +=1
+            player_score +=1
+        print("You have ", player_score)
+        print("The opponent has ", computer_score)
+time.sleep(2)
+
+if player_score == computer_score: #These are scenarios whether the if the player won, tie or lost. 
+    print("\nThe points between you and the opponent are a tie!")
+    print("In total you have", player_score)
+    print("The opponent has", computer_score)
+elif player_score >= computer_score:
+    print("\nYou won!")
+    print("In total you have", player_score)
+    print("The opponent has", computer_score)
+elif player_score <= computer_score:
+    print("\nYou lost.")
+    print("In total you have", player_score)
+    print("The opponent has", computer_score)
